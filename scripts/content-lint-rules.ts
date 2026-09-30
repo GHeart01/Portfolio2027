@@ -48,11 +48,12 @@ export const GENERIC_RULES: readonly PatternRule[] = [
   },
   {
     // Model / part-number shaped tokens: uppercase letters sandwiched by digits, e.g. "AB12CD3".
+    // Needs 2+ digits so ordinary names like "NL2SQL" or "B2B" pass.
     id: "model-or-part-number",
     severity: "error",
     pattern: /\b[A-Z0-9]*[A-Z]+\d+[A-Z]+\d*[A-Z0-9]*\b/g,
     appliesTo: isContent,
-    accept: (m) => m.length >= 5,
+    accept: (m) => m.length >= 5 && (m.match(/\d/g) ?? []).length >= 2,
   },
   {
     id: "long-numeric-id",

@@ -1,0 +1,295 @@
+{
+  "$schema": "./resume.schema.json",
+  "meta": {
+    "updated": "2026-09-30"
+  },
+  "profile": {
+    "name": "Geralt Heart",
+    "role": "Software Engineer",
+    "org": "Athena Manufacturing",
+    "location": "Austin, TX",
+    "pitch": "Software engineer building automation, data pipelines, and AI-integrated tools: local LLMs, RAG, and MCP.",
+    "summary": "I'm a software engineer at Athena Manufacturing in Austin, where I started as an intern and was promoted to Software Engineer I. I build automation, data pipelines, and AI-integrated internal tools, and I deploy them as containers on-prem. I'm also finishing an MS in Computer Science (ML/Robotics) at CU Boulder. My background is applied math, and I like work where math, code, and systems meet.",
+    "currently": "building CLI + MCP developer tools; MS CS at CU Boulder (May 2027)",
+    "stack": ["TypeScript", "Python", ".NET", "SQL Server", "Qdrant", "Docker"],
+    "interests": [
+      "Local LLMs and retrieval-augmented generation",
+      "Agent tooling and the Model Context Protocol",
+      "Multi-robot planning and robotics",
+      "RLHF and the math of neural networks"
+    ],
+    "email": "emailme@geraltheart.com",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/GHeart01" },
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/geraltheart001" },
+      { "label": "Website", "url": "https://geraltheart.com" }
+    ]
+  },
+  "experience": [
+    {
+      "id": "athena-swe",
+      "company": "Athena Manufacturing",
+      "role": "Software Engineer I",
+      "location": "Austin, TX",
+      "start": "2026-08",
+      "end": "present",
+      "summary": "Promoted from intern. Automation, data pipelines, and AI-integrated internal tools in a regulated manufacturing environment.",
+      "highlights": [
+        {
+          "id": "agent-notifications",
+          "text": "Deployed an agent orchestrator on Microsoft Azure that sends targeted Microsoft Teams notifications through Microsoft Graph. It resolves recipients from the company directory and keeps a full trace of every message, so jobs keep moving through production.",
+          "tags": ["Azure", "Microsoft Graph", "agents"],
+          "aliases": ["automation", "orchestration", "notifications", "Teams bot"]
+        },
+        {
+          "id": "change-reconciliation",
+          "text": "Built a reconciliation pipeline between the ERP database and the engineering-change tracking system, plus a .NET review interface where engineers confirm discrepancies before changes are committed. It unified the engineering change workflow.",
+          "tags": [".NET", "SQL Server", "data pipelines"],
+          "aliases": ["data reconciliation", "ETL", "data quality", "C#"]
+        },
+        {
+          "id": "order-data-model",
+          "text": "Replaced free-text order linkage with a standardized data structure connecting sales orders to bills of materials and shortages. Purchasing and sales now share one view of shortages and job status, and nobody had to change how they work.",
+          "tags": ["SQL Server", "data modeling"],
+          "aliases": ["ERP", "schema design", "BOM"]
+        }
+      ],
+      "stack": ["C#/.NET", "SQL Server", "Azure", "Microsoft Graph", "Docker"],
+      "aliases": ["current job", "day job", "Athena"]
+    },
+    {
+      "id": "athena-intern",
+      "company": "Athena Manufacturing",
+      "role": "Software Engineering Intern",
+      "location": "Austin, TX",
+      "start": "2026-05",
+      "end": "2026-08",
+      "highlights": [
+        {
+          "id": "nl-to-sql-assistant",
+          "text": "Built an on-prem natural-language-to-SQL assistant for the ERP on .NET 10. It runs local LLMs (Qwen3 and LLaMA) with hybrid retrieval-augmented generation: Qdrant vector search combined with BM25/n-gram keyword search. MCP tools handle structured queries, and OpenTelemetry traces every request.",
+          "tags": ["LLM", "RAG", "MCP", ".NET", "Qdrant"],
+          "aliases": [
+            "RAG",
+            "retrieval-augmented generation",
+            "hybrid search",
+            "vector database",
+            "text-to-SQL",
+            "NL2SQL",
+            "local LLM",
+            "AI assistant",
+            "Model Context Protocol",
+            "embeddings"
+          ]
+        },
+        {
+          "id": "kanban-scheduler",
+          "text": "Built and deployed a Kanban production scheduler (Python, Flask/Django) on Microsoft SQL Server via pyodbc. It replaced a manual queue with automated scheduling that minimizes retooling time and maximizes throughput.",
+          "tags": ["Python", "Flask", "Django", "SQL Server"],
+          "aliases": ["scheduling algorithm", "optimization", "web app"]
+        },
+        {
+          "id": "machine-data-sync",
+          "text": "Automated cross-database reconciliation between CNC machine data and the ERP, and integrated a document-control API so machinists see the right job documentation at each routing step.",
+          "tags": ["Python", "SQL", "API integration"],
+          "aliases": ["data pipelines", "manufacturing data", "integration"]
+        },
+        {
+          "id": "on-prem-containers",
+          "text": "Containerized and deployed applications to on-prem infrastructure that meets ITAR compliance requirements.",
+          "tags": ["Docker", "on-prem", "DevOps"],
+          "aliases": ["containers", "deployment", "self-hosted", "compliance"]
+        }
+      ],
+      "stack": ["Python", "Flask", "Django", "C#/.NET", "SQL Server", "Qdrant", "Docker", "OpenTelemetry"],
+      "aliases": ["internship", "intern"]
+    },
+    {
+      "id": "handshake-ai-trainer",
+      "company": "Handshake",
+      "role": "AI Trainer",
+      "location": "Austin, TX",
+      "start": "2026-02",
+      "end": "2026-05",
+      "highlights": [
+        {
+          "id": "rlhf-evaluation",
+          "text": "Evaluated AI-generated content for factual accuracy and hallucinations, supporting reinforcement learning from human feedback (RLHF) pipelines.",
+          "tags": ["RLHF", "LLM evaluation"],
+          "aliases": ["reward modeling", "human feedback", "AI safety", "annotation"]
+        }
+      ],
+      "stack": [],
+      "aliases": ["RLHF"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "geraltheart-v2",
+      "name": "geraltheart.com",
+      "tagline": "This site: one JSON file feeds a terminal UI, a public MCP server, and an in-browser LLM.",
+      "status": "shipped",
+      "featured": true,
+      "year": 2026,
+      "description": "A terminal-style portfolio built so that people and agents read the same source. One content file drives the static site, a read-only Model Context Protocol server that Claude and other agents can connect to, an llms.txt, and an 'ask' chat that runs a small quantized model entirely in the visitor's browser with WebGPU. Answers are grounded in the content file and cite their source.",
+      "highlights": [
+        "Remote MCP server (Streamable HTTP) on Cloudflare Workers, rate-limited and read-only",
+        "In-browser RAG: BM25 retrieval plus Qwen3 via WebLLM, with a citation guard that refuses to answer from outside the content",
+        "Works without JavaScript; keyboard-first, accessible terminal UI"
+      ],
+      "stack": ["TypeScript", "Astro", "Cloudflare Workers", "MCP TypeScript SDK", "WebLLM"],
+      "links": [
+        { "label": "repo", "url": "https://github.com/GHeart01/Portfolio2027" },
+        { "label": "live", "url": "https://geraltheart.com" }
+      ],
+      "aliases": [
+        "portfolio",
+        "website",
+        "MCP server",
+        "WebLLM",
+        "RAG",
+        "retrieval-augmented generation",
+        "llms.txt"
+      ]
+    },
+    {
+      "id": "lidar-scout",
+      "name": "LiDAR Scout",
+      "tagline": "Multi-robot LiDAR pursuit simulator with A* planning and a shared occupancy map.",
+      "status": "shipped",
+      "featured": true,
+      "year": 2026,
+      "description": "Four robots sweep a noisy 360° LiDAR, build a shared occupancy grid, and chase a roaming target using A* path planning with obstacle inflation. Each robot uses a different pursuit strategy (predictive, ambush, direct, scatter) and runs its own finite-state machine (IDLE, CHASE, AVOID). The sensor model has configurable range, field of view, resolution, Gaussian noise, and dropout.",
+      "highlights": [
+        "A* with obstacle inflation over a collaboratively mapped occupancy grid",
+        "Per-robot finite-state machines and pursuit strategies",
+        "Configurable LiDAR sensor model with noise and dropout",
+        "Unit-tested simulation core with CI"
+      ],
+      "stack": ["TypeScript", "React", "React Three Fiber", "Three.js", "Vitest"],
+      "links": [
+        { "label": "demo", "url": "https://li-dar-scout.vercel.app" },
+        { "label": "repo", "url": "https://github.com/GHeart01/LiDAR-Scout" }
+      ],
+      "aliases": [
+        "robotics",
+        "path planning",
+        "A-star",
+        "SLAM",
+        "multi-agent",
+        "simulation",
+        "pursuit-evasion"
+      ]
+    },
+    {
+      "id": "upcoming-cli",
+      "name": "Untitled CLI tool",
+      "tagline": "A developer CLI. Details land here when it ships.",
+      "status": "in-progress",
+      "placeholder": true,
+      "description": "Placeholder for a command-line tool that is in progress. Nothing about it has been announced yet.",
+      "aliases": ["command line", "terminal tool"]
+    },
+    {
+      "id": "upcoming-mcp-server",
+      "name": "Untitled MCP server",
+      "tagline": "An MCP server for developer workflows. Details land here when it ships.",
+      "status": "in-progress",
+      "placeholder": true,
+      "description": "Placeholder for a Model Context Protocol server that is in progress. Nothing about it has been announced yet.",
+      "aliases": ["Model Context Protocol", "agent tools"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "languages",
+      "name": "Languages",
+      "items": ["Python", "TypeScript", "JavaScript", "SQL", "C#", "C++", "MATLAB", "Bash", "PowerShell"]
+    },
+    {
+      "id": "ai-ml",
+      "name": "AI / ML",
+      "items": [
+        "Local LLMs (Qwen3, LLaMA)",
+        "RAG and hybrid search",
+        "Model Context Protocol",
+        "RLHF evaluation",
+        "scikit-learn",
+        "TensorFlow",
+        "Pandas",
+        "NumPy"
+      ],
+      "aliases": [
+        "machine learning",
+        "artificial intelligence",
+        "retrieval-augmented generation",
+        "embeddings"
+      ]
+    },
+    {
+      "id": "web-apps",
+      "name": "Web and apps",
+      "items": [
+        ".NET",
+        "React",
+        "React Three Fiber",
+        "Three.js",
+        "Node.js",
+        "Astro",
+        "Flask",
+        "Django",
+        "PyQt6"
+      ],
+      "aliases": ["frontend", "backend", "full stack"]
+    },
+    {
+      "id": "data",
+      "name": "Data",
+      "items": ["Microsoft SQL Server", "PostgreSQL", "MySQL", "Qdrant"],
+      "aliases": ["databases", "vector database"]
+    },
+    {
+      "id": "infra",
+      "name": "Infra and DevOps",
+      "items": [
+        "Docker",
+        "Kubernetes",
+        "Azure",
+        "AWS Lightsail",
+        "Cloudflare Workers",
+        "GitHub Actions",
+        "OpenTelemetry"
+      ],
+      "aliases": ["cloud", "CI/CD", "containers", "observability", "on-prem"]
+    }
+  ],
+  "education": [
+    {
+      "id": "cu-boulder-ms",
+      "school": "University of Colorado Boulder",
+      "degree": "M.S. Computer Science",
+      "focus": "Machine Learning and Robotics",
+      "location": "Boulder, CO",
+      "start": "2025-01",
+      "end": "2027-05",
+      "expected": true,
+      "gpa": "3.9",
+      "notes": ["Coursework: machine learning and AI, data mining, network systems"],
+      "aliases": ["grad school", "masters", "MSCS", "CU"]
+    },
+    {
+      "id": "utrgv-bs",
+      "school": "University of Texas Rio Grande Valley",
+      "degree": "B.S. Applied Mathematics",
+      "location": "Edinburg, TX",
+      "start": "2017-07",
+      "end": "2020-05",
+      "gpa": "3.5",
+      "notes": [
+        "Fourier series, number theory, statistics",
+        "Capstone: Fourier analysis of a multiple-input multiple-output (MIMO) radar system in MATLAB"
+      ],
+      "aliases": ["undergrad", "bachelors", "math degree", "UTRGV"]
+    }
+  ]
+}

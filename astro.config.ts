@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import { SITE } from "./src/content/site";
+import validateContent from "./src/integrations/validate-content";
 
 export default defineConfig({
   site: SITE,
@@ -10,7 +11,7 @@ export default defineConfig({
     format: "file",
     inlineStylesheets: "always",
   },
-  integrations: [sitemap()],
+  integrations: [validateContent(), sitemap()],
   server: { port: 5190 },
   vite: {
     server: {

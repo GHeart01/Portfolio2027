@@ -1,0 +1,436 @@
+{
+  "title": "geraltheart.com resume content",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        }
+      },
+      "required": [
+        "updated"
+      ],
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Job title, e.g. 'Software Engineer'"
+        },
+        "org": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Current employer"
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pitch": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "One-line pitch shown at the top of every interface"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "About paragraph"
+        },
+        "currently": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "neofetch 'currently:' status line"
+        },
+        "stack": {
+          "minItems": 1,
+          "maxItems": 8,
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Short stack list for the neofetch readout"
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+        },
+        "links": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "label",
+              "url"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "org",
+        "location",
+        "pitch",
+        "summary",
+        "currently",
+        "stack",
+        "email",
+        "links"
+      ],
+      "additionalProperties": false
+    },
+    "experience": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "description": "Stable id; used in URLs, citations, and MCP lookups. Don't rename casually."
+          },
+          "company": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+              },
+              {
+                "type": "string",
+                "const": "present"
+              }
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "highlights": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                  "description": "Stable id; used in URLs, citations, and MCP lookups. Don't rename casually."
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "aliases": {
+                  "description": "Extra search terms (synonyms, acronyms). Not displayed.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "aliases": {
+            "description": "Extra search terms (synonyms, acronyms). Not displayed.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "company",
+          "role",
+          "location",
+          "start",
+          "end",
+          "highlights"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "projects": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "description": "Stable id; used in URLs, citations, and MCP lookups. Don't rename casually."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tagline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "shipped",
+              "in-progress",
+              "planned"
+            ]
+          },
+          "placeholder": {
+            "description": "True for not-yet-announced work; interfaces must never present it as finished",
+            "type": "boolean"
+          },
+          "featured": {
+            "type": "boolean"
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 2000,
+            "maximum": 2100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "required": [
+                "label",
+                "url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "aliases": {
+            "description": "Extra search terms (synonyms, acronyms). Not displayed.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "tagline",
+          "status",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "skills": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "description": "Stable id; used in URLs, citations, and MCP lookups. Don't rename casually."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "items": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "aliases": {
+            "description": "Extra search terms (synonyms, acronyms). Not displayed.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "items"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "education": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "description": "Stable id; used in URLs, citations, and MCP lookups. Don't rename casually."
+          },
+          "school": {
+            "type": "string",
+            "minLength": 1
+          },
+          "degree": {
+            "type": "string",
+            "minLength": 1
+          },
+          "focus": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "end": {
+            "type": "string",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+          },
+          "expected": {
+            "type": "boolean"
+          },
+          "gpa": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "aliases": {
+            "description": "Extra search terms (synonyms, acronyms). Not displayed.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "id",
+          "school",
+          "degree",
+          "location",
+          "start",
+          "end"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "meta",
+    "profile",
+    "experience",
+    "projects",
+    "skills",
+    "education"
+  ],
+  "additionalProperties": false
+}
