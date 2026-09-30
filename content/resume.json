@@ -45,7 +45,7 @@
           "id": "change-reconciliation",
           "text": "Built a reconciliation pipeline between the ERP database and the engineering-change tracking system, plus a .NET review interface where engineers confirm discrepancies before changes are committed. It unified the engineering change workflow.",
           "tags": [".NET", "SQL Server", "data pipelines"],
-          "aliases": ["data reconciliation", "ETL", "data quality", "C#"]
+          "aliases": ["data reconciliation", "ETL", "data quality"]
         },
         {
           "id": "order-data-model",
@@ -54,7 +54,7 @@
           "aliases": ["ERP", "schema design", "BOM"]
         }
       ],
-      "stack": ["C#/.NET", "SQL Server", "Azure", "Microsoft Graph", "Docker"],
+      "stack": [".NET", "SQL Server", "Azure", "Microsoft Graph", "Docker"],
       "aliases": ["current job", "day job", "Athena"]
     },
     {
@@ -102,7 +102,7 @@
           "aliases": ["containers", "deployment", "self-hosted", "compliance"]
         }
       ],
-      "stack": ["Python", "Flask", "Django", "C#/.NET", "SQL Server", "Qdrant", "Docker", "OpenTelemetry"],
+      "stack": ["Python", "Flask", "Django", ".NET", "SQL Server", "Qdrant", "Docker", "OpenTelemetry"],
       "aliases": ["internship", "intern"]
     },
     {
@@ -205,7 +205,7 @@
     {
       "id": "languages",
       "name": "Languages",
-      "items": ["Python", "TypeScript", "JavaScript", "SQL", "C#", "C++", "MATLAB", "Bash", "PowerShell"]
+      "items": ["Python", "TypeScript", "JavaScript", "SQL", "C++", "MATLAB", "Bash", "PowerShell"]
     },
     {
       "id": "ai-ml",

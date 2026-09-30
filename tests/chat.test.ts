@@ -53,7 +53,8 @@ describe("preCheck", () => {
 
   it("names unknown proper nouns so the model (and the refusal) can mention them", () => {
     expect(unknownTerms(index, "Did Geralt work at Google?")).toEqual(["Google"]);
-    expect(unknownTerms(index, "Does he know .NET and C#?")).toEqual([]);
+    expect(unknownTerms(index, "Does he know .NET and C++?")).toEqual([]);
+    expect(unknownTerms(index, "Does he know C#?")).toEqual(["C#"]);
     expect(unknownTerms(index, "Has he used Terraform?")).toEqual(["Terraform"]);
   });
 });
@@ -172,9 +173,13 @@ describe("citation repair (real Qwen3-1.7B outputs from pnpm eval:chat)", () => 
     );
     ok(
       "Which programming languages does he know?",
-      "Geralt knows Python, TypeScript, JavaScript, SQL, C#, C++, MATLAB, Bash, and PowerShell.",
+      "Geralt knows Python, TypeScript, JavaScript, SQL, C++, MATLAB, Bash, and PowerShell.",
       "skills/languages",
     );
+    // ...but a language the content doesn't list is dropped, not repaired
+    expect(
+      checkAnswer("Geralt knows Python and C#.", ctxFor("Which programming languages does he know?")).kind,
+    ).toBe("refusal");
     ok("Has he used Docker?", "Yes, Geralt has used Docker.", "experience/athena-intern/on-prem-containers");
   });
 
