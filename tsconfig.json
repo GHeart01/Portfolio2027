@@ -14,5 +14,5 @@
     "eval/**/*",
     "*.ts"
   ],
-  "exclude": ["dist", "src/worker/**/*"]
+  "exclude": ["dist", "src/worker/**/*", "tests/mcp*.test.ts"]
 }

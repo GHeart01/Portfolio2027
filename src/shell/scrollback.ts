@@ -44,7 +44,7 @@ function uniquifyIds(section: Element, suffix: string): void {
       .split(/\s+/)
       .map((id) => map.get(id) ?? id)
       .join(" ");
-  for (const attr of ["aria-labelledby", "aria-describedby", "aria-controls", "for", "list"]) {
+  for (const attr of ["aria-labelledby", "aria-describedby", "aria-controls", "for", "list", "data-copy"]) {
     section
       .querySelectorAll(`[${attr}]`)
       .forEach((el) => el.setAttribute(attr, remap(el.getAttribute(attr)!)));

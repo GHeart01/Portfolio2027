@@ -4,6 +4,6 @@
     "lib": ["ES2023"],
     "types": []
   },
-  "include": ["src/worker/**/*", "src/content/**/*"],
+  "include": ["src/worker/**/*", "src/content/**/*", "tests/mcp*.test.ts"],
   "exclude": ["dist", "src/content/**/*.astro"]
 }

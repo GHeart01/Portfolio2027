@@ -156,6 +156,47 @@ if (form && input_) {
   });
 }
 
+// ── copy buttons ─────────────────────────────────────────────────────────
+function selectText(el: Element): void {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const sel = window.getSelection();
+  sel?.removeAllRanges();
+  sel?.addRange(range);
+}
+
+async function copyFrom(el: Element): Promise<boolean> {
+  const text = el.textContent ?? "";
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // Older browsers / unfocused documents: fall back to a selection-based copy.
+    selectText(el);
+    try {
+      return document.execCommand("copy");
+    } catch {
+      return false;
+    }
+  }
+}
+
+document.addEventListener("click", (e) => {
+  const btn = (e.target as Element | null)?.closest?.<HTMLButtonElement>("button[data-copy]");
+  const src = btn && document.getElementById(btn.dataset.copy ?? "");
+  if (!btn || !src) return;
+  void copyFrom(src).then((ok) => {
+    if (ok) {
+      btn.textContent = "copied";
+      announce("Copied to clipboard");
+      setTimeout(() => (btn.textContent = "copy"), 1500);
+    } else {
+      selectText(src);
+      announce("Text selected; press Control or Command plus C to copy");
+    }
+  });
+});
+
 // ── links ────────────────────────────────────────────────────────────────
 document.addEventListener("click", (e) => {
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;

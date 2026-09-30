@@ -2,12 +2,124 @@
 import Terminal from "../layouts/Terminal.astro";
 import Cmd from "../components/Cmd.astro";
 import Pane from "../components/Pane.astro";
+import { MCP_URL, mcpSetup } from "../content/render/mcp";
+import { TOOLS } from "../worker/mcp/tools";
+
+const args = (t: (typeof TOOLS)[number]) =>
+  "inputSchema" in t ? `(${Object.keys(t.inputSchema.shape).join(", ")})` : "()";
 ---
 
-<Terminal cmd="mcp">
+<Terminal
+  cmd="mcp"
+  markdown="/mcp.md"
+  description="Connect Claude or another MCP client to Geralt Heart's portfolio."
+>
   <Cmd name="mcp">
-    <Pane title="mcp">
-      <p class="dim">Coming in a later milestone.</p>
-    </Pane>
+    <div class="stack">
+      <Pane title="mcp">
+        <div class="prose">
+          <p>
+            This site is also a read-only <a href="https://modelcontextprotocol.io">Model Context Protocol</a>{" "}
+            server. Connect Claude (or any MCP client) and ask about my experience, projects, and skills. It
+            reads the same content file as this page.
+          </p>
+          <dl class="kv kv-10">
+            <dt>endpoint</dt>
+            <dd>
+              <code>{MCP_URL}</code>
+            </dd>
+            <dt>transport</dt>
+            <dd>Streamable HTTP, stateless, no auth</dd>
+            <dt>limits</dt>
+            <dd>60 requests per minute per IP; read-only</dd>
+          </dl>
+        </div>
+      </Pane>
+
+      <Pane title="claude code">
+        <div class="snippet">
+          <pre
+            id="mcp-cc"
+            tabindex="0"
+            aria-label="Claude Code command"
+          ><code>{mcpSetup.claudeCode}</code></pre>
+          <button type="button" class="copy" data-copy="mcp-cc" data-js-only hidden>
+            copy
+          </button>
+        </div>
+      </Pane>
+
+      <Pane title="claude.ai / claude desktop">
+        <p>
+          Open <strong>Customize → Connectors</strong>, click <strong>+</strong>, choose{" "}
+          <strong>Add custom connector</strong>, and paste the endpoint URL. No sign-in needed.
+        </p>
+      </Pane>
+
+      <Pane title="other clients (stdio bridge)">
+        <div class="snippet">
+          <pre
+            id="mcp-json"
+            tabindex="0"
+            aria-label="MCP client configuration"
+          ><code>{mcpSetup.bridgeJson}</code></pre>
+          <button type="button" class="copy" data-copy="mcp-json" data-js-only hidden>
+            copy
+          </button>
+        </div>
+      </Pane>
+
+      <Pane title="tools">
+        <dl class="tools">
+          {TOOLS.map((t) => (
+            <div>
+              <dt>
+                <code>
+                  {t.name}
+                  {args(t)}
+                </code>
+              </dt>
+              <dd>{t.description}</dd>
+            </div>
+          ))}
+        </dl>
+      </Pane>
+
+      <Pane title="example">
+        <p class="dim">
+          A real run: Claude Code connected to this endpoint, 2026-09-30. Answer lightly trimmed.
+        </p>
+        <div class="transcript">
+          <p>
+            <span class="who">you</span> What has Geralt built with RAG?
+          </p>
+          <p class="call">
+            <span class="who">tool</span> search(query: "RAG retrieval augmented generation") → top hit
+            <code>experience/athena-intern/nl-to-sql-assistant</code>
+          </p>
+          <div>
+            <p>
+              <span class="who">claude</span> Geralt's portfolio lists two things he built with RAG:
+            </p>
+            <ol class="numbered">
+              <li>
+                <strong>An NL-to-SQL assistant at Athena Manufacturing</strong> (internship, 2026): an on-prem
+                assistant on .NET 10 that turns plain-English questions into SQL for the ERP. It runs local
+                LLMs (Qwen3 and LLaMA) with hybrid retrieval, Qdrant vector search plus BM25/n-gram keyword
+                search, and MCP tools for structured queries.{" "}
+                <a href="/experience#athena-intern-nl-to-sql-assistant">source</a>
+              </li>
+              <li>
+                <strong>geraltheart.com</strong>: the "ask" chat does RAG entirely in the visitor's browser,
+                with BM25 retrieval over the content file and a quantized Qwen3 model via WebLLM, plus a
+                citation guard that refuses to answer from outside the content.{" "}
+                <a href="/projects/geraltheart-v2">source</a>
+              </li>
+            </ol>
+            <p>No other RAG projects came up in the search.</p>
+          </div>
+        </div>
+      </Pane>
+    </div>
   </Cmd>
 </Terminal>
