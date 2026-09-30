@@ -58,7 +58,7 @@ jobs:
       - name: Lighthouse
         run: |
           pnpm exec wrangler dev --port 8787 &
-          npx --yes wait-on@8 http://localhost:8787/ --timeout 60000
+          for i in $(seq 1 60); do curl -sf http://localhost:8787/ > /dev/null && break; sleep 1; done
           pnpm lhci
       - uses: actions/upload-artifact@v4
         if: failure()
