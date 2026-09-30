@@ -4,3 +4,4 @@
 import { registerIsland } from "./islands";
 
 registerIsland("ask", () => import("../chat/ui"));
+registerIsland("sim", () => import("../sim/island"));

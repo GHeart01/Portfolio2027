@@ -378,3 +378,61 @@
   padding-left: 3ch;
   list-style: decimal;
 }
+
+/* sim */
+.sim {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  justify-items: start;
+}
+.sim-screen {
+  line-height: 1.15;
+  font-size: clamp(0.62rem, 1.9vw, 1rem);
+  overflow-x: auto;
+  max-width: 100%;
+}
+.sim-status {
+  font-size: 0.9em;
+}
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1ch;
+}
+.sim-controls[hidden] {
+  display: none;
+}
+.s-wall {
+  color: var(--fg);
+}
+.s-ghost {
+  color: var(--rule);
+}
+.s-free {
+  color: #2a3142;
+}
+.s-scan,
+.s-prey {
+  color: var(--amber);
+}
+.s-prey {
+  font-weight: 700;
+}
+/* LiDAR Scout's ghost colors, lightened for contrast on navy; letters carry the identity too */
+.s-r0 {
+  color: #ff7b72;
+  font-weight: 700;
+}
+.s-r1 {
+  color: #ffb8e0;
+  font-weight: 700;
+}
+.s-r2 {
+  color: #7ee8ea;
+  font-weight: 700;
+}
+.s-r3 {
+  color: #ffc07a;
+  font-weight: 700;
+}

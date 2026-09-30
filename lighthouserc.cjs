@@ -7,6 +7,8 @@ module.exports = {
         "http://localhost:8787/experience",
         "http://localhost:8787/projects/lidar-scout",
         "http://localhost:8787/resume",
+        "http://localhost:8787/ask",
+        "http://localhost:8787/sim",
       ],
       numberOfRuns: 1,
       settings: { onlyCategories: ["performance", "accessibility", "best-practices", "seo"] },

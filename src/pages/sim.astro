@@ -2,12 +2,37 @@
 import Terminal from "../layouts/Terminal.astro";
 import Cmd from "../components/Cmd.astro";
 import Pane from "../components/Pane.astro";
+import { renderHtml, statusLine } from "../sim/render";
+import { World } from "../sim/world";
+
+// The no-JS version: one frame rendered at build time by the same seeded simulation.
+const world = new World("Scatter", 1337);
+for (let i = 0; i < 90; i++) world.step();
+const frame = renderHtml(world);
+const status = statusLine(world);
 ---
 
-<Terminal cmd="sim">
+<Terminal cmd="sim" description="An ASCII multi-robot LiDAR pursuit simulator with A* path planning.">
   <Cmd name="sim">
     <Pane title="sim">
-      <p class="dim">Coming in a later milestone.</p>
+      <p class="lede-plain">
+        Four robots (<span class="s-r0">R</span>, <span class="s-r1">P</span>, <span class="s-r2">C</span>,{" "}
+        <span class="s-r3">O</span>) sweep LiDAR, build one shared map, and chase the target (
+        <span class="s-prey">●</span>) with A* path planning. Each has its own strategy: Red predicts, Pink
+        ambushes, Cyan chases, Orange scatters when close. Dim walls haven't been scanned yet.
+      </p>
+      <div class="sim" data-island="sim">
+        <pre class="sim-screen" aria-hidden="true" set:html={frame} />
+        <p class="sim-status dim" aria-hidden="true">
+          {status}
+        </p>
+        <p class="sim-live visually-hidden" aria-live="polite"></p>
+        <div class="sim-controls" hidden></div>
+      </div>
+      <p class="dim after">
+        An ASCII port of <a href="/projects/lidar-scout">LiDAR Scout</a>; the{" "}
+        <a href="https://li-dar-scout.vercel.app">3D original</a> has the full sensor model.
+      </p>
     </Pane>
   </Cmd>
 </Terminal>
