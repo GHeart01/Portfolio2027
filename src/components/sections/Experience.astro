@@ -12,7 +12,7 @@ import { experience, formatRange } from "../../content/index";
           {formatRange(e)}, {e.location}
         </p>
       </header>
-      {e.summary && <p class="summary">{e.summary}</p>}
+      {e.summary && <p class="role-summary">{e.summary}</p>}
       <ul class="bullets">
         {e.highlights.map((h) => (
           <li id={`${e.id}-${h.id}`}>{h.text}</li>
@@ -28,25 +28,3 @@ import { experience, formatRange } from "../../content/index";
     </Pane>
   ))}
 </div>
-
-<style>
-  .role {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0 3ch;
-    margin-bottom: 0.6rem;
-  }
-  .summary {
-    margin-bottom: 0.6rem;
-    color: var(--dim);
-  }
-  .bullets {
-    display: grid;
-    gap: 0.45rem;
-    max-width: 80ch;
-  }
-  .tags {
-    margin-top: 0.75rem;
-  }
-</style>

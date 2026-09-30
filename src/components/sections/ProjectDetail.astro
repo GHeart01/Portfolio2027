@@ -10,7 +10,7 @@ const { project: p } = Astro.props;
 ---
 
 <Pane title={p.name}>
-  <dl class="kv meta">
+  <dl class="kv kv-8 meta">
     <dt>status</dt>
     <dd class="status" data-status={p.status}>
       {statusLabel(p)}
@@ -36,7 +36,7 @@ const { project: p } = Astro.props;
       </>
     ))}
   </dl>
-  <p class="tagline">{p.tagline}</p>
+  <p class="lede">{p.tagline}</p>
   <p class="desc">{p.description}</p>
   {p.highlights?.length ? (
     <ul class="bullets">
@@ -49,22 +49,3 @@ const { project: p } = Astro.props;
 <p class="back">
   <a href="/projects">all projects</a>
 </p>
-
-<style>
-  .meta {
-    grid-template-columns: 8ch 1fr;
-    margin-bottom: 1rem;
-  }
-  .tagline {
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .desc {
-    max-width: 78ch;
-    margin-bottom: 0.75rem;
-  }
-  .bullets {
-    display: grid;
-    gap: 0.35rem;
-  }
-</style>

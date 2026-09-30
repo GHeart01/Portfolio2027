@@ -13,7 +13,7 @@ const rows = [
 ---
 
 <Pane title="contact">
-  <dl class="kv">
+  <dl class="kv kv-10">
     {rows.map((r) => (
       <>
         <dt>{r.k}</dt>
@@ -24,9 +24,3 @@ const rows = [
     ))}
   </dl>
 </Pane>
-
-<style>
-  .kv {
-    grid-template-columns: 10ch 1fr;
-  }
-</style>

@@ -440,3 +440,10 @@ kbd {
   min-height: 26px;
   padding-block: 0.15rem;
 }
+
+/* glyph dissolve: real text goes transparent only while the overlay is drawing it */
+.fx-hiding,
+.fx-hiding *:not(.art, .art *) {
+  color: transparent !important;
+  text-decoration-color: transparent !important;
+}

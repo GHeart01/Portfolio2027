@@ -36,7 +36,7 @@ const rows: [string, string][] = [
     <p class="rule" aria-hidden="true">
       {"─".repeat(23)}
     </p>
-    <dl class="kv">
+    <dl class="kv kv-10">
       <dt>name</dt>
       <dd>
         <strong class="name" data-fx="boot">
@@ -53,57 +53,3 @@ const rows: [string, string][] = [
   </div>
 </div>
 <p class="pitch">{profile.pitch}</p>
-
-<style>
-  .neofetch {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    gap: 1rem 4ch;
-    align-items: start;
-  }
-  .art {
-    line-height: 1.2;
-    font-size: 1em;
-  }
-  .art :global(.hit),
-  .art :global(.robot) {
-    color: var(--amber);
-  }
-  .art :global(.free) {
-    color: var(--rule);
-  }
-  .who .user {
-    color: var(--amber);
-    font-weight: 700;
-  }
-  .rule {
-    color: var(--rule);
-    overflow: hidden;
-  }
-  .kv {
-    grid-template-columns: 10ch 1fr;
-  }
-  .name {
-    font-weight: 700;
-  }
-  .pitch {
-    max-width: 72ch;
-    margin-top: 1.5rem;
-    font-size: 1.07em;
-  }
-  @media (max-width: 52rem) {
-    .neofetch {
-      grid-template-columns: 1fr;
-    }
-  }
-  /* Decorative only: on phones the name and pitch matter more than the scan. */
-  @media (max-width: 34rem) {
-    .art {
-      display: none;
-    }
-    .kv {
-      grid-template-columns: 9ch 1fr;
-      column-gap: 1ch;
-    }
-  }
-</style>

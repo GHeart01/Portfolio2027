@@ -34,27 +34,3 @@ const { items = projects, title = "projects" } = Astro.props;
     ))}
   </ul>
 </Pane>
-
-<style>
-  .projects {
-    display: grid;
-    gap: 1.1rem;
-  }
-  .line {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 2ch;
-    align-items: baseline;
-  }
-  .pname {
-    font-weight: 700;
-  }
-  .tagline {
-    color: var(--dim);
-    max-width: 76ch;
-  }
-  .plinks {
-    display: flex;
-    gap: 2ch;
-  }
-</style>

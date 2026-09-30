@@ -13,23 +13,3 @@ import { skills } from "../../content/index";
     ))}
   </dl>
 </Pane>
-
-<style>
-  .skills {
-    display: grid;
-    gap: 0.6rem;
-  }
-  .skills div {
-    display: grid;
-    grid-template-columns: 18ch 1fr;
-    gap: 0 2ch;
-  }
-  .skills dt {
-    color: var(--amber);
-  }
-  @media (max-width: 40rem) {
-    .skills div {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

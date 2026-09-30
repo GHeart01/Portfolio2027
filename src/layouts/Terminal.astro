@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
-import { profile } from "../content/index";
+import "../styles/sections.css";
+import { profile, projects } from "../content/index";
 import { SITE } from "../content/site";
 import { COMMANDS } from "../shell/commands";
 
@@ -47,7 +48,7 @@ const canonical = new URL(Astro.url.pathname === "/index" ? "/" : Astro.url.path
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
   </head>
-  <body data-cmd={cmd}>
+  <body data-cmd={cmd} data-projects={projects.map((p) => p.id).join(" ")}>
     <a class="skip-link" href="#main">
       Skip to content
     </a>
@@ -114,5 +115,8 @@ const canonical = new URL(Astro.url.pathname === "/index" ? "/" : Astro.url.path
         </ul>
       </footer>
     </div>
+    <script>
+      import "../shell/boot";
+    </script>
   </body>
 </html>

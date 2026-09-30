@@ -29,7 +29,7 @@ const jsonLd = {
     <div class="split">
       <ProjectList items={featuredProjects()} title="top projects" />
       <Pane title="contact">
-        <dl class="kv">
+        <dl class="kv kv-9">
           <dt>email</dt>
           <dd>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
@@ -49,29 +49,9 @@ const jsonLd = {
     </div>
     <Pane title="commands">
       <CommandMenu />
-      <p class="hint dim" data-js-only hidden>
+      <p class="dim after" data-js-only hidden>
         Click a command, press its key, or type it below.
       </p>
     </Pane>
   </Cmd>
 </Terminal>
-
-<style>
-  .split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1.25rem 2ch;
-    margin-top: 0.5rem;
-  }
-  .kv {
-    grid-template-columns: 9ch 1fr;
-  }
-  .hint {
-    margin-top: 0.9rem;
-  }
-  @media (max-width: 52rem) {
-    .split {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

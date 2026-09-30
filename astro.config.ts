@@ -31,6 +31,7 @@ export default defineConfig({
     },
   },
   server: { port: 5190 },
+  devToolbar: { enabled: false },
   markdown: { syntaxHighlight: false },
   vite: {
     server: {
