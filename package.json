@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@mlc-ai/web-llm": "^0.2.85",
     "@modelcontextprotocol/server": "^2.2.0",
     "astro": "^7.3.5",
     "zod": "^4.6.5"

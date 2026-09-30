@@ -2,12 +2,29 @@
 import Terminal from "../layouts/Terminal.astro";
 import Cmd from "../components/Cmd.astro";
 import Pane from "../components/Pane.astro";
+import { MODEL } from "../chat/model";
 ---
 
-<Terminal cmd="ask">
+<Terminal
+  cmd="ask"
+  description="Ask questions about Geralt Heart's work, answered only from this site's content."
+>
   <Cmd name="ask">
     <Pane title="ask">
-      <p class="dim">Coming in a later milestone.</p>
+      <p class="lede-plain">
+        Ask about my work, projects, and skills. Answers come only from this site's content and cite their
+        sources; if the answer isn't here, it says so.
+      </p>
+      <p class="dim">
+        By default answers come from keyword search. On a desktop with WebGPU you can load a small model (
+        {MODEL.label}, {MODEL.approxDownload}) that runs entirely in your browser: nothing you type leaves
+        your device.
+      </p>
+      <div class="ask" data-island="ask">
+        <p class="dim">
+          This needs JavaScript. Everything it knows is on the <a href="/resume">resume</a> page.
+        </p>
+      </div>
     </Pane>
   </Cmd>
 </Terminal>

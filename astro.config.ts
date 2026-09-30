@@ -34,6 +34,8 @@ export default defineConfig({
   devToolbar: { enabled: false },
   markdown: { syntaxHighlight: false },
   vite: {
+    // WebLLM (loaded only after [load model]) is one ~6 MB module; that's expected.
+    build: { chunkSizeWarningLimit: 7000 },
     server: {
       strictPort: true,
       // `pnpm dev:worker` serves /mcp; proxy it so the site and the endpoint share an origin in dev.

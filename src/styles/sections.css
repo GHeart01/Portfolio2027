@@ -251,3 +251,130 @@
     width: 100%;
   }
 }
+
+/* ask */
+.lede-plain {
+  max-width: 78ch;
+  margin-bottom: 0.5rem;
+}
+.ask {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.ask-status {
+  color: var(--dim);
+}
+.ask-model {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: start;
+}
+.ask-model:empty {
+  display: none;
+}
+.btn {
+  min-height: 28px;
+  padding: 0.2rem 1ch;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--amber);
+  font: inherit;
+  cursor: pointer;
+}
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--amber);
+}
+.btn[hidden] {
+  display: none;
+}
+.progress {
+  color: var(--amber);
+}
+.ask-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1ch;
+}
+.ask-form input {
+  flex: 1 1 24ch;
+  min-width: 0;
+  min-height: 32px;
+  padding: 0.25rem 1ch;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  caret-color: var(--amber);
+}
+.ask-form input:focus-visible {
+  border-color: var(--amber);
+  outline: none;
+}
+.ask-form input::placeholder {
+  color: var(--dim);
+}
+.ask-hints {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.5ch;
+}
+.hint-btn {
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--fg);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.hint-btn:hover {
+  color: var(--amber);
+}
+.ask-log {
+  display: grid;
+  gap: 1.25rem;
+}
+.ask-log:empty {
+  display: none;
+}
+.turn {
+  display: grid;
+  gap: 0.4rem;
+}
+.turn .who {
+  color: var(--amber);
+}
+.turn .a {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 80ch;
+  padding-left: 2ch;
+  border-left: 1px solid var(--rule);
+}
+.turn .draft {
+  color: var(--dim);
+}
+.turn blockquote {
+  margin: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+.cite {
+  margin-left: 0.3ch;
+  text-decoration: none;
+}
+.sources {
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 3ch;
+  list-style: decimal;
+}

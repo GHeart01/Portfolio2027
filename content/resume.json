@@ -67,7 +67,7 @@
       "highlights": [
         {
           "id": "nl-to-sql-assistant",
-          "text": "Built an on-prem natural-language-to-SQL assistant for the ERP on .NET 10. It runs local LLMs (Qwen3 and LLaMA) with hybrid retrieval-augmented generation: Qdrant vector search combined with BM25/n-gram keyword search. MCP tools handle structured queries, and OpenTelemetry traces every request.",
+          "text": "Built an on-prem natural-language-to-SQL assistant for the ERP on .NET 10. It runs local LLMs (Qwen3 and LLaMA) with hybrid retrieval-augmented generation (RAG): Qdrant vector search combined with BM25/n-gram keyword search. MCP tools handle structured queries, and OpenTelemetry traces every request.",
           "tags": ["LLM", "RAG", "MCP", ".NET", "Qdrant"],
           "aliases": [
             "RAG",
@@ -75,6 +75,7 @@
             "hybrid search",
             "vector database",
             "text-to-SQL",
+            "NL-to-SQL",
             "NL2SQL",
             "local LLM",
             "AI assistant",

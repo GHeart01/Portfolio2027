@@ -3,4 +3,4 @@
  */
 import { registerIsland } from "./islands";
 
-void registerIsland; // islands are registered here as they're built (ask, sim)
+registerIsland("ask", () => import("../chat/ui"));

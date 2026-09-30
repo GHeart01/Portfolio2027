@@ -21,6 +21,13 @@ export interface Chunk {
   keywords: string[];
 }
 
+// State abbreviations people (and models) expand when they talk about places.
+const STATES: Record<string, string> = { TX: "Texas", CO: "Colorado" };
+const placeTerms = (loc: string) =>
+  Object.entries(STATES)
+    .filter(([abbr]) => new RegExp(`\\b${abbr}\\b`).test(loc))
+    .map(([, name]) => name);
+
 export function buildChunks(r: Resume = defaultResume): Chunk[] {
   const chunks: Chunk[] = [];
   const p = r.profile;
@@ -39,7 +46,24 @@ export function buildChunks(r: Resume = defaultResume): Chunk[] {
     ]
       .filter(Boolean)
       .join(" "),
-    keywords: [p.name, p.role, p.org, p.location, "about", "bio", "background", "who"],
+    keywords: [
+      p.name,
+      p.role,
+      p.org,
+      p.location,
+      ...placeTerms(p.location),
+      // the summary says "CU Boulder"; people expand it
+      ...r.education.map((e) => e.school),
+      "about",
+      "bio",
+      "background",
+      "who",
+      "work",
+      "job",
+      "employer",
+      "current",
+      "now",
+    ],
   });
 
   chunks.push({
@@ -66,7 +90,14 @@ export function buildChunks(r: Resume = defaultResume): Chunk[] {
       ]
         .filter(Boolean)
         .join(" "),
-      keywords: [e.role, e.company, ...(e.aliases ?? []), "experience", "work", "job"],
+      // "work"/"job" questions usually mean the current role, so only present roles get those terms.
+      keywords: [
+        e.role,
+        e.company,
+        ...(e.aliases ?? []),
+        "experience",
+        ...(e.end === "present" ? ["work", "job", "current", "now"] : ["previous", "past"]),
+      ],
     });
     for (const h of e.highlights) {
       chunks.push({
@@ -75,7 +106,7 @@ export function buildChunks(r: Resume = defaultResume): Chunk[] {
         title: `${e.role} · ${e.company}`,
         url: `/experience#${e.id}-${h.id}`,
         text: `${header}: ${h.text}${h.tags?.length ? ` (${h.tags.join(", ")})` : ""}`,
-        keywords: [...(h.tags ?? []), ...(h.aliases ?? []), e.company],
+        keywords: [...(h.tags ?? []), ...(h.aliases ?? []), e.company, ...placeTerms(e.location)],
       });
     }
   }
