@@ -12,7 +12,26 @@ export default defineConfig({
     inlineStylesheets: "always",
   },
   integrations: [validateContent(), sitemap()],
+  security: {
+    // Emitted as a <meta> CSP with hashes for Astro's own scripts/styles. frame-ancestors is set in
+    // public/_headers because it can't be delivered via <meta>.
+    csp: {
+      directives: [
+        "default-src 'self'",
+        "img-src 'self' data:",
+        "font-src 'self'",
+        // WebLLM (the `ask` command) downloads model weights and its wasm runtime from these hosts.
+        "connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://raw.githubusercontent.com",
+        "worker-src 'self' blob:",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "object-src 'none'",
+      ],
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
+    },
+  },
   server: { port: 5190 },
+  markdown: { syntaxHighlight: false },
   vite: {
     server: {
       strictPort: true,

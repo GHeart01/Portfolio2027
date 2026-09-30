@@ -1,0 +1,17 @@
+---
+import { COMMANDS } from "../../shell/commands";
+---
+
+<ul class="menu">
+  {COMMANDS.map((c) => (
+    <li>
+      <a href={c.path} data-run={c.name}>
+        <span class="key" aria-hidden="true">
+          {c.key}
+        </span>
+        <span class="name">{c.name}</span>
+        <span class="sum">{c.summary}</span>
+      </a>
+    </li>
+  ))}
+</ul>

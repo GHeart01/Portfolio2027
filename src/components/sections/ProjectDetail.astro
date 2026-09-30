@@ -1,0 +1,70 @@
+---
+import Pane from "../Pane.astro";
+import { statusLabel } from "../../content/index";
+import type { Project } from "../../content/index";
+
+interface Props {
+  project: Project;
+}
+const { project: p } = Astro.props;
+---
+
+<Pane title={p.name}>
+  <dl class="kv meta">
+    <dt>status</dt>
+    <dd class="status" data-status={p.status}>
+      {statusLabel(p)}
+    </dd>
+    {p.year && (
+      <>
+        <dt>year</dt>
+        <dd>{p.year}</dd>
+      </>
+    )}
+    {p.stack?.length ? (
+      <>
+        <dt>stack</dt>
+        <dd>{p.stack.join(", ")}</dd>
+      </>
+    ) : null}
+    {p.links?.map((l) => (
+      <>
+        <dt>{l.label}</dt>
+        <dd>
+          <a href={l.url}>{l.url.replace(/^https:\/\//, "")}</a>
+        </dd>
+      </>
+    ))}
+  </dl>
+  <p class="tagline">{p.tagline}</p>
+  <p class="desc">{p.description}</p>
+  {p.highlights?.length ? (
+    <ul class="bullets">
+      {p.highlights.map((h) => (
+        <li>{h}</li>
+      ))}
+    </ul>
+  ) : null}
+</Pane>
+<p class="back">
+  <a href="/projects">all projects</a>
+</p>
+
+<style>
+  .meta {
+    grid-template-columns: 8ch 1fr;
+    margin-bottom: 1rem;
+  }
+  .tagline {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .desc {
+    max-width: 78ch;
+    margin-bottom: 0.75rem;
+  }
+  .bullets {
+    display: grid;
+    gap: 0.35rem;
+  }
+</style>

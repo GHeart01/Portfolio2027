@@ -1,0 +1,60 @@
+---
+import Pane from "../Pane.astro";
+import { projects, statusLabel } from "../../content/index";
+import type { Project } from "../../content/index";
+
+interface Props {
+  items?: Project[];
+  title?: string;
+}
+const { items = projects, title = "projects" } = Astro.props;
+---
+
+<Pane title={title}>
+  <ul class="projects">
+    {items.map((p) => (
+      <li>
+        <p class="line">
+          <a href={`/projects/${p.id}`} class="pname">
+            {p.name}
+          </a>
+          <span class="status" data-status={p.status}>
+            [{statusLabel(p)}]
+          </span>
+        </p>
+        <p class="tagline">{p.tagline}</p>
+        {p.links?.length ? (
+          <p class="plinks">
+            {p.links.map((l) => (
+              <a href={l.url}>{l.label}</a>
+            ))}
+          </p>
+        ) : null}
+      </li>
+    ))}
+  </ul>
+</Pane>
+
+<style>
+  .projects {
+    display: grid;
+    gap: 1.1rem;
+  }
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2ch;
+    align-items: baseline;
+  }
+  .pname {
+    font-weight: 700;
+  }
+  .tagline {
+    color: var(--dim);
+    max-width: 76ch;
+  }
+  .plinks {
+    display: flex;
+    gap: 2ch;
+  }
+</style>

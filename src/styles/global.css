@@ -1,0 +1,442 @@
+/*
+ * One family, one accent. Hierarchy comes from weight, the amber accent, and btop-style panes,
+ * never from size jumps: it's a terminal.
+ */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-2.304-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-2.304-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  /* contrast vs --bg: fg 12.8, dim 5.7, amber 10.0, err 7.7 */
+  --bg: #151923;
+  --fg: #d9dce3;
+  --dim: #8a93a6;
+  --rule: #3a4256;
+  --amber: #f5b94c;
+  --err: #ff8a80;
+  --sel: #3b3222;
+
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --fs: clamp(0.8125rem, 0.74rem + 0.3vw, 0.9375rem);
+  --lh: 1.6;
+  --measure: 88ch;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  font-variant-ligatures: none;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--rule) var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+::selection {
+  background: var(--sel);
+  color: var(--amber);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+pre,
+figure {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-size: 1em;
+  font-weight: 700;
+  line-height: var(--lh);
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--amber) 45%, transparent);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-color: var(--amber);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+code,
+kbd,
+pre {
+  font-family: inherit;
+  font-size: 1em;
+}
+
+kbd {
+  color: var(--amber);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dim {
+  color: var(--dim);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: 0.5rem;
+  z-index: 10;
+  padding: 0.25rem 1ch;
+  background: var(--amber);
+  color: var(--bg);
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: none;
+}
+
+/* ── page frame ─────────────────────────────────────────── */
+
+.term {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 1.5rem var(--gutter) 3rem;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 2ch;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.topbar .home {
+  font-weight: 700;
+  color: var(--fg);
+  text-decoration: none;
+}
+.topbar .home:hover,
+.topbar .home:focus-visible {
+  color: var(--amber);
+}
+.topbar nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2ch;
+}
+.topbar nav a {
+  color: var(--dim);
+  text-decoration: none;
+}
+.topbar nav a:hover,
+.topbar nav a[aria-current="page"] {
+  color: var(--amber);
+}
+
+/* ── command output blocks ──────────────────────────────── */
+
+.scrollback {
+  display: grid;
+  gap: 2.25rem;
+}
+
+.cmd {
+  display: grid;
+  gap: 1.4rem;
+  scroll-margin-top: 1rem;
+}
+
+.echo {
+  color: var(--dim);
+  overflow-wrap: anywhere;
+}
+.ps1 {
+  color: var(--amber);
+}
+.ps1 .path {
+  color: var(--dim);
+}
+
+.cmd > h1:focus {
+  outline: none;
+}
+
+/* ── panes (btop / lazygit style: rounded box, title on the top edge) ── */
+
+.pane {
+  position: relative;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 2ch 1rem;
+  min-width: 0;
+}
+.pane > .pane-title {
+  position: absolute;
+  top: 0;
+  left: 1.5ch;
+  transform: translateY(-50%);
+  padding: 0 1ch;
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 700;
+  line-height: 1;
+}
+.pane > .pane-title::before {
+  content: "┤ " / "";
+  color: var(--rule);
+  font-weight: 400;
+}
+.pane > .pane-title::after {
+  content: " ├" / "";
+  color: var(--rule);
+  font-weight: 400;
+}
+
+.stack {
+  display: grid;
+  gap: 1rem;
+}
+
+/* key/value rows, neofetch style */
+.kv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.1rem 2ch;
+}
+.kv dt {
+  color: var(--amber);
+}
+.kv dd {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.bullets li {
+  display: grid;
+  grid-template-columns: 2ch 1fr;
+}
+.bullets li::before {
+  content: "›" / "";
+  color: var(--dim);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2.5ch;
+  color: var(--dim);
+}
+
+.status {
+  color: var(--dim);
+  white-space: nowrap;
+}
+.status[data-status="shipped"] {
+  color: var(--fg);
+}
+
+.err {
+  color: var(--err);
+}
+
+/* command menu */
+.menu {
+  display: grid;
+  gap: 0.1rem;
+}
+.menu a {
+  display: grid;
+  grid-template-columns: 2ch 11ch 1fr;
+  gap: 0 1.5ch;
+  padding: 0.05rem 0.5ch;
+  margin: 0 -0.5ch;
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 3px;
+}
+.menu a:hover,
+.menu a:focus-visible {
+  background: var(--sel);
+}
+.menu .key {
+  color: var(--amber);
+}
+.menu .name {
+  font-weight: 700;
+}
+.menu .sum {
+  color: var(--dim);
+}
+@media (max-width: 34rem) {
+  .menu a {
+    grid-template-columns: 2ch 1fr;
+  }
+  .menu .sum {
+    grid-column: 2;
+  }
+}
+
+/* prompt (JS only; hidden until the shell boots) */
+.prompt {
+  display: flex;
+  align-items: baseline;
+  gap: 1ch;
+  margin-top: 2.25rem;
+}
+.prompt[hidden] {
+  display: none;
+}
+.prompt input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  caret-color: var(--amber);
+}
+.prompt input:focus {
+  outline: none;
+}
+.prompt:focus-within {
+  outline: 2px solid color-mix(in srgb, var(--amber) 40%, transparent);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 3ch;
+}
+.site-footer a {
+  color: var(--dim);
+}
+.site-footer a:hover {
+  color: var(--amber);
+}
+
+/* Printing (e.g. /resume): light, ink-friendly, no chrome. */
+@media print {
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --fg: #111418;
+    --dim: #4a5160;
+    --rule: #c9ced8;
+    --amber: #7a4a00;
+  }
+  html {
+    font-size: 10pt;
+  }
+  .term {
+    max-width: none;
+    padding: 0;
+  }
+  .topbar,
+  .site-footer,
+  .prompt,
+  .echo,
+  .skip-link,
+  .back {
+    display: none !important;
+  }
+  .pane {
+    break-inside: avoid;
+  }
+  a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+}
+
+/* WCAG 2.5.8 target size: every standalone link gets at least a 24px-tall hit area. */
+.topbar nav a,
+.topbar .home,
+.site-footer a,
+.plinks a,
+.back a {
+  display: inline-block;
+  min-height: 24px;
+  padding-block: 0.2rem;
+}
+.menu a {
+  min-height: 26px;
+  padding-block: 0.15rem;
+}

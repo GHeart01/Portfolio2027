@@ -1,0 +1,63 @@
+---
+import Pane from "../Pane.astro";
+import { education, formatRange, profile } from "../../content/index";
+---
+
+<div class="stack">
+  <Pane title="about">
+    <div class="prose">
+      <p>{profile.summary}</p>
+      <p>
+        <span class="dim">currently:</span> {profile.currently}
+      </p>
+    </div>
+  </Pane>
+  {profile.interests?.length ? (
+    <Pane title="interests">
+      <ul class="bullets">
+        {profile.interests.map((i) => (
+          <li>{i}</li>
+        ))}
+      </ul>
+    </Pane>
+  ) : null}
+  <Pane title="education" id="education">
+    <ul class="entries">
+      {education.map((ed) => (
+        <li id={ed.id}>
+          <h3>
+            {ed.degree}
+            {ed.focus && <span class="dim"> ({ed.focus})</span>}
+          </h3>
+          <p>{ed.school}</p>
+          <p class="dim">
+            {formatRange(ed, ed.expected)}, {ed.location}
+            {ed.gpa && <>, GPA {ed.gpa}</>}
+          </p>
+          {ed.notes?.length ? (
+            <ul class="bullets">
+              {ed.notes.map((n) => (
+                <li>{n}</li>
+              ))}
+            </ul>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  </Pane>
+</div>
+
+<style>
+  .prose {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 76ch;
+  }
+  .entries {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .entries .bullets {
+    margin-top: 0.4rem;
+  }
+</style>

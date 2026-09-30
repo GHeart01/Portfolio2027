@@ -1,0 +1,54 @@
+---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import Pane from "../components/Pane.astro";
+import CommandMenu from "../components/sections/CommandMenu.astro";
+---
+
+<Terminal cmd="help">
+  <Cmd name="help">
+    <div class="stack">
+      <Pane title="commands">
+        <CommandMenu />
+      </Pane>
+      <Pane title="keyboard">
+        <dl class="kv">
+          <dt>
+            <kbd>1</kbd>–<kbd>9</kbd>, <kbd>?</kbd>
+          </dt>
+          <dd>run the matching command (when you're not typing in the prompt)</dd>
+          <dt>
+            <kbd>/</kbd>
+          </dt>
+          <dd>focus the prompt</dd>
+          <dt>
+            <kbd>Tab</kbd>
+          </dt>
+          <dd>complete a command in the prompt</dd>
+          <dt>
+            <kbd>↑</kbd> <kbd>↓</kbd>
+          </dt>
+          <dd>command history</dd>
+          <dt>clear</dt>
+          <dd>clear the screen</dd>
+          <dt>keys off</dt>
+          <dd>
+            turn off single-key shortcuts (<code>keys on</code> turns them back on)
+          </dd>
+        </dl>
+        <p class="dim note">
+          Every command is also a normal link, so the site works without a keyboard or JavaScript.
+        </p>
+      </Pane>
+    </div>
+  </Cmd>
+</Terminal>
+
+<style>
+  .kv {
+    grid-template-columns: 12ch 1fr;
+  }
+  .note {
+    margin-top: 0.9rem;
+  }
+</style>

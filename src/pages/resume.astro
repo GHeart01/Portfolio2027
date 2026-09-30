@@ -1,0 +1,40 @@
+---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import About from "../components/sections/About.astro";
+import Experience from "../components/sections/Experience.astro";
+import ProjectList from "../components/sections/ProjectList.astro";
+import Skills from "../components/sections/Skills.astro";
+import Contact from "../components/sections/Contact.astro";
+import { profile } from "../content/index";
+---
+
+<Terminal cmd="resume" markdown="/resume.md" description={`${profile.name}'s full resume: ${profile.pitch}`}>
+  <Cmd name="resume" heading={`${profile.name}: resume`}>
+    <div class="resume">
+      <header class="rhead">
+        <p class="rname">{profile.name}</p>
+        <p>
+          {profile.role} at {profile.org}, {profile.location}
+        </p>
+        <p class="dim">{profile.pitch}</p>
+      </header>
+      <Contact />
+      <Experience />
+      <ProjectList />
+      <Skills />
+      <About />
+    </div>
+  </Cmd>
+</Terminal>
+
+<style>
+  .resume {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .rname {
+    font-weight: 700;
+    color: var(--amber);
+  }
+</style>

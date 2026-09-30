@@ -1,12 +1,77 @@
 ---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import Pane from "../components/Pane.astro";
+import Neofetch from "../components/sections/Neofetch.astro";
+import ProjectList from "../components/sections/ProjectList.astro";
+import CommandMenu from "../components/sections/CommandMenu.astro";
+import { education, featuredProjects, profile } from "../content/index";
+import { SITE } from "../content/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  worksFor: { "@type": "Organization", name: profile.org },
+  address: { "@type": "PostalAddress", addressLocality: "Austin", addressRegion: "TX" },
+  email: `mailto:${profile.email}`,
+  url: SITE,
+  sameAs: profile.links.filter((l) => !l.url.startsWith(SITE)).map((l) => l.url),
+  alumniOf: education.map((e) => ({ "@type": "CollegeOrUniversity", name: e.school })),
+  description: profile.pitch,
+};
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Geralt Heart</title>
-  </head>
-  <body>
-    <p>scaffold</p>
-  </body>
-</html>
+<Terminal cmd="home" markdown="/llms.txt" jsonLd={jsonLd}>
+  <Cmd name="home" heading={`${profile.name}, ${profile.role}`} echo="neofetch">
+    <Neofetch />
+    <div class="split">
+      <ProjectList items={featuredProjects()} title="top projects" />
+      <Pane title="contact">
+        <dl class="kv">
+          <dt>email</dt>
+          <dd>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </dd>
+          {profile.links
+            .filter((l) => !l.url.startsWith(SITE))
+            .map((l) => (
+              <>
+                <dt>{l.label.toLowerCase()}</dt>
+                <dd>
+                  <a href={l.url}>{l.url.replace(/^https:\/\/(www\.)?/, "")}</a>
+                </dd>
+              </>
+            ))}
+        </dl>
+      </Pane>
+    </div>
+    <Pane title="commands">
+      <CommandMenu />
+      <p class="hint dim" data-js-only hidden>
+        Click a command, press its key, or type it below.
+      </p>
+    </Pane>
+  </Cmd>
+</Terminal>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.25rem 2ch;
+    margin-top: 0.5rem;
+  }
+  .kv {
+    grid-template-columns: 9ch 1fr;
+  }
+  .hint {
+    margin-top: 0.9rem;
+  }
+  @media (max-width: 52rem) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

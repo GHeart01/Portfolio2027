@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths } from "astro";
+import Terminal from "../../layouts/Terminal.astro";
+import Cmd from "../../components/Cmd.astro";
+import ProjectDetail from "../../components/sections/ProjectDetail.astro";
+import { projects } from "../../content/index";
+import type { Project } from "../../content/index";
+
+export const getStaticPaths = (() =>
+  projects.map((project) => ({ params: { slug: project.id }, props: { project } }))) satisfies GetStaticPaths;
+
+const { project } = Astro.props as { project: Project };
+---
+
+<Terminal
+  cmd="projects"
+  title={`${project.name} · projects`}
+  description={project.tagline}
+  markdown={`/projects/${project.id}.md`}
+>
+  <Cmd name={`project-${project.id}`} heading={project.name} echo={`projects ${project.id}`}>
+    <ProjectDetail project={project} />
+  </Cmd>
+</Terminal>

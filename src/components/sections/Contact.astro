@@ -1,0 +1,32 @@
+---
+import Pane from "../Pane.astro";
+import { profile } from "../../content/index";
+
+const rows = [
+  { k: "email", label: profile.email, href: `mailto:${profile.email}` },
+  ...profile.links.map((l) => ({
+    k: l.label.toLowerCase(),
+    label: l.url.replace(/^https:\/\/(www\.)?/, ""),
+    href: l.url,
+  })),
+];
+---
+
+<Pane title="contact">
+  <dl class="kv">
+    {rows.map((r) => (
+      <>
+        <dt>{r.k}</dt>
+        <dd>
+          <a href={r.href}>{r.label}</a>
+        </dd>
+      </>
+    ))}
+  </dl>
+</Pane>
+
+<style>
+  .kv {
+    grid-template-columns: 10ch 1fr;
+  }
+</style>

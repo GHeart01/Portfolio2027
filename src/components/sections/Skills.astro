@@ -1,0 +1,35 @@
+---
+import Pane from "../Pane.astro";
+import { skills } from "../../content/index";
+---
+
+<Pane title="skills">
+  <dl class="skills">
+    {skills.map((s) => (
+      <div id={s.id}>
+        <dt>{s.name}</dt>
+        <dd>{s.items.join(", ")}</dd>
+      </div>
+    ))}
+  </dl>
+</Pane>
+
+<style>
+  .skills {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .skills div {
+    display: grid;
+    grid-template-columns: 18ch 1fr;
+    gap: 0 2ch;
+  }
+  .skills dt {
+    color: var(--amber);
+  }
+  @media (max-width: 40rem) {
+    .skills div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

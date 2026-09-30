@@ -1,0 +1,109 @@
+---
+import { profile } from "../../content/index";
+import { lidarArt, type ArtCell } from "../../lib/lidar-art";
+
+// Built as one HTML string: whitespace inside <pre> is significant, so no template formatting here.
+// Runs of the same kind share a span, so each line is a handful of spans, not one per character.
+const artHtml = lidarArt(24, 11)
+  .map((line) =>
+    line
+      .reduce<{ kind: ArtCell["kind"]; text: string }[]>((runs, c) => {
+        const last = runs.at(-1);
+        if (last && last.kind === c.kind) last.text += c.ch;
+        else runs.push({ kind: c.kind, text: c.ch });
+        return runs;
+      }, [])
+      .map((r) => (r.kind === "empty" ? r.text : `<span class="${r.kind}">${r.text}</span>`))
+      .join(""),
+  )
+  .join("\n");
+const rows: [string, string][] = [
+  ["role", `${profile.role} at ${profile.org}`],
+  ["location", profile.location],
+  ["stack", profile.stack.join(", ")],
+  ["currently", profile.currently],
+];
+---
+
+<div class="neofetch">
+  <pre class="art" aria-hidden="true" set:html={artHtml} />
+  <div class="readout">
+    <p class="who">
+      <span class="user">visitor</span>
+      <span class="dim">@</span>
+      <span class="user">geraltheart.com</span>
+    </p>
+    <p class="rule" aria-hidden="true">
+      {"─".repeat(23)}
+    </p>
+    <dl class="kv">
+      <dt>name</dt>
+      <dd>
+        <strong class="name" data-fx="boot">
+          {profile.name}
+        </strong>
+      </dd>
+      {rows.map(([k, v]) => (
+        <>
+          <dt>{k}</dt>
+          <dd>{v}</dd>
+        </>
+      ))}
+    </dl>
+  </div>
+</div>
+<p class="pitch">{profile.pitch}</p>
+
+<style>
+  .neofetch {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem 4ch;
+    align-items: start;
+  }
+  .art {
+    line-height: 1.2;
+    font-size: 1em;
+  }
+  .art :global(.hit),
+  .art :global(.robot) {
+    color: var(--amber);
+  }
+  .art :global(.free) {
+    color: var(--rule);
+  }
+  .who .user {
+    color: var(--amber);
+    font-weight: 700;
+  }
+  .rule {
+    color: var(--rule);
+    overflow: hidden;
+  }
+  .kv {
+    grid-template-columns: 10ch 1fr;
+  }
+  .name {
+    font-weight: 700;
+  }
+  .pitch {
+    max-width: 72ch;
+    margin-top: 1.5rem;
+    font-size: 1.07em;
+  }
+  @media (max-width: 52rem) {
+    .neofetch {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Decorative only: on phones the name and pitch matter more than the scan. */
+  @media (max-width: 34rem) {
+    .art {
+      display: none;
+    }
+    .kv {
+      grid-template-columns: 9ch 1fr;
+      column-gap: 1ch;
+    }
+  }
+</style>

@@ -1,0 +1,11 @@
+---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import About from "../components/sections/About.astro";
+---
+
+<Terminal cmd="about" markdown="/about.md">
+  <Cmd name="about">
+    <About />
+  </Cmd>
+</Terminal>

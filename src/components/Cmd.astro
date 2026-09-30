@@ -1,0 +1,28 @@
+---
+/**
+ * One command's output. The JS shell clones these sections (by [data-cmd]) out of fetched pages into
+ * the scrollback, so each page's section must be self-contained.
+ */
+interface Props {
+  name: string;
+  /** Visible heading; defaults to the command name. */
+  heading?: string;
+  /** Text echoed after the prompt; defaults to the command name. */
+  echo?: string;
+}
+const { name, heading = name, echo = name } = Astro.props;
+const hid = `cmd-${name.replace(/[^a-z0-9-]/gi, "-")}`;
+---
+
+<section class="cmd" data-cmd={name} aria-labelledby={hid}>
+  <p class="echo" aria-hidden="true">
+    <span class="ps1">
+      visitor@geraltheart.com<span class="path">:~</span>$
+    </span>{" "}
+    {echo}
+  </p>
+  <h1 id={hid} class="visually-hidden" tabindex="-1">
+    {heading}
+  </h1>
+  <slot />
+</section>

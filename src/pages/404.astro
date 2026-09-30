@@ -1,0 +1,17 @@
+---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import Pane from "../components/Pane.astro";
+import CommandMenu from "../components/sections/CommandMenu.astro";
+---
+
+<Terminal cmd="404" title="command not found · geraltheart.com">
+  <Cmd name="404" heading="Page not found" echo="cd ???">
+    <p>
+      <span class="err">error:</span> nothing lives at this path. Try one of these:
+    </p>
+    <Pane title="commands">
+      <CommandMenu />
+    </Pane>
+  </Cmd>
+</Terminal>

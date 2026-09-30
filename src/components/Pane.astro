@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  id?: string;
+  /** Heading level for the pane title (the page h1 is the command). */
+  level?: 2 | 3;
+  class?: string;
+}
+const { title, id, level = 2, class: cls } = Astro.props;
+const H = `h${level}` as "h2" | "h3";
+---
+
+<section class:list={["pane", cls]} id={id}>
+  <H class="pane-title">{title}</H>
+  <slot />
+</section>

@@ -1,0 +1,118 @@
+---
+import "../styles/global.css";
+import { profile } from "../content/index";
+import { SITE } from "../content/site";
+import { COMMANDS } from "../shell/commands";
+
+interface Props {
+  /** Command this page shows (drives <title>, aria-current, and the markdown alternate). */
+  cmd: string;
+  title?: string;
+  description?: string;
+  /** Path of a markdown version of this page, if one exists. */
+  markdown?: string;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { cmd, title, description = profile.pitch, markdown, jsonLd } = Astro.props;
+const pageTitle = title ?? (cmd === "home" ? `${profile.name}: ${profile.role}` : `${cmd} · ${profile.name}`);
+const canonical = new URL(Astro.url.pathname === "/index" ? "/" : Astro.url.pathname, SITE).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#151923" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/jetbrains-mono-2.304-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link rel="describedby" href="/llms.txt" type="text/plain" />
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE}/og.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body data-cmd={cmd}>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <div class="term">
+      <header class="topbar">
+        <a class="home" href="/" aria-current={cmd === "home" ? "page" : undefined}>
+          geraltheart.com
+        </a>
+        <nav aria-label="Commands">
+          <ul>
+            {COMMANDS.map((c) => (
+              <li>
+                <a href={c.path} aria-current={c.name === cmd ? "page" : undefined}>
+                  {c.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      <main id="main" tabindex="-1">
+        <div class="scrollback" id="scrollback">
+          <slot />
+        </div>
+
+        <form class="prompt" id="prompt" hidden autocomplete="off">
+          <label for="prompt-input" class="ps1">
+            <span aria-hidden="true">
+              visitor@geraltheart.com<span class="path">:~</span>$
+            </span>
+            <span class="visually-hidden">Type a command</span>
+          </label>
+          <input
+            id="prompt-input"
+            name="cmd"
+            type="text"
+            spellcheck="false"
+            autocapitalize="off"
+            enterkeyhint="go"
+            aria-describedby="prompt-hint"
+          />
+          <span id="prompt-hint" class="visually-hidden">
+            Try help, projects, or a number from 1 to 9. Tab completes.
+          </span>
+        </form>
+        <p id="announcer" class="visually-hidden" aria-live="polite"></p>
+      </main>
+
+      <footer class="site-footer">
+        <ul>
+          <li>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </li>
+          <li>
+            <a href="https://github.com/GHeart01/Portfolio2027">source on GitHub</a>
+          </li>
+          <li>
+            <a href="/llms.txt">llms.txt</a>
+          </li>
+          <li>
+            <a href="/mcp">MCP endpoint</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+  </body>
+</html>

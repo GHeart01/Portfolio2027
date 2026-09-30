@@ -1,0 +1,11 @@
+---
+import Terminal from "../layouts/Terminal.astro";
+import Cmd from "../components/Cmd.astro";
+import ProjectList from "../components/sections/ProjectList.astro";
+---
+
+<Terminal cmd="projects" markdown="/projects.md">
+  <Cmd name="projects">
+    <ProjectList />
+  </Cmd>
+</Terminal>
