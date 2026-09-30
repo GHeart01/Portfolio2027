@@ -1,0 +1,66 @@
+{
+  "name": "geraltheart-v2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "geraltheart.com v2: a terminal-style portfolio with a read-only MCP server and an in-browser resume chat, all fed by one content file.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.22.0",
+      "onFail": "error"
+    },
+    "runtime": {
+      "name": "node",
+      "version": ">=22.12",
+      "onFail": "warn"
+    }
+  },
+  "scripts": {
+    "dev": "astro dev --port 5190",
+    "dev:worker": "wrangler dev --port 8787",
+    "build": "pnpm build:site",
+    "build:site": "astro build",
+    "preview": "wrangler dev --port 8787",
+    "deploy:dry": "wrangler deploy --dry-run --outdir .wrangler/dry",
+    "check": "astro check && tsc -p tsconfig.worker.json && tsc -p tsconfig.content.json",
+    "types": "wrangler types src/worker/worker-configuration.d.ts",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "content:lint": "tsx scripts/content-lint.ts",
+    "content:schema": "tsx scripts/gen-schema.ts",
+    "eval:chat": "tsx eval/run-chat-eval.ts",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm -s content:lint --staged"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.3",
+    "eslint": "^10.11.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "simple-git-hooks": "^2.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.2",
+    "wrangler": "^4.143.1"
+  }
+}

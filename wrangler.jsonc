@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Deliberately NOT the name of the live geraltheart.com worker, so a deploy can never overwrite it.
+  "name": "geraltheart-v2",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "build": {
+    "command": "pnpm build:site",
+    "watch_dir": ["src", "content"],
+  },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash",
+  },
+  "observability": { "enabled": true },
+}

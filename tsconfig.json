@@ -1,0 +1,18 @@
+{
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable", "WebWorker.ImportScripts"],
+    "types": ["vite/client"]
+  },
+  "include": [
+    ".astro/types.d.ts",
+    "src/**/*",
+    "content/**/*",
+    "scripts/**/*",
+    "tests/**/*",
+    "e2e/**/*",
+    "eval/**/*",
+    "*.ts"
+  ],
+  "exclude": ["dist", "src/worker/**/*"]
+}

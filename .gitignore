@@ -1,0 +1,24 @@
+# deps / build
+node_modules/
+dist/
+.astro/
+.wrangler/
+.vite/
+.cache/
+
+# local secrets & private lists (never commit)
+.dev.vars
+.env
+.env.*
+.content-denylist
+
+# test output
+playwright-report/
+test-results/
+.lighthouseci/
+eval/results/
+coverage/
+
+# os / editor
+.DS_Store
+*.log

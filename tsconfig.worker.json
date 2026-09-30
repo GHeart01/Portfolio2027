@@ -1,0 +1,9 @@
+{
+  "extends": "astro/tsconfigs/strictest",
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "types": []
+  },
+  "include": ["src/worker/**/*", "src/content/**/*"],
+  "exclude": ["dist", "src/content/**/*.astro"]
+}
