@@ -273,6 +273,7 @@ export async function mount(root: HTMLElement): Promise<void> {
         }
       }
       history.push({ question, answer: result.text.slice(0, 600) });
+      turn.scrollIntoView({ block: "nearest" });
       await dissolveIn(answer);
     } finally {
       stop.hidden = true;
